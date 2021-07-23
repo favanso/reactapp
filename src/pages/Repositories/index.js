@@ -1,24 +1,33 @@
+import React, { useEffect, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import * as S from "./styled";
 
-import React from "react";
-import * as S from './styled';
+export default function Repositories() {
+  const [repositories, setRepositories] = useState([]);
+  const history = useHistory();
 
-export default function Repositories(){
-    return(
-        <S.Container>
-        <S.Title>Repositories</S.Title>
+  useEffect(() => {
+    let repositoriesName = localStorage.getItem("repositoriesName");
+    //If usado para nao mostrar erro de pagina para o usuario
+    if (repositoriesName != null) {
+      repositoriesName = JSON.parse(repositoriesName);
+      setRepositories(repositoriesName);
+      localStorage.clear();
+    } else {
+      history.push("/");
+    }
+  }, []);
+
+  return (
+    <S.Container>
+      <S.Title>Repositories</S.Title>
       <S.List>
-         <S.ListItem>Repository: Name Repository</S.ListItem>
-         <S.ListItem>Repository: Name Repository</S.ListItem>
-         <S.ListItem>Repository: Name Repository</S.ListItem>
-         <S.ListItem>Repository: Name Repository</S.ListItem>
-         <S.ListItem>Repository: Name Repository</S.ListItem>
-         <S.ListItem>Repository: Name Repository</S.ListItem>
-         <S.ListItem>Repository: Name Repository</S.ListItem>
-         <S.ListItem>Repository: Name Repository</S.ListItem>
-         <S.ListItem>Repository: Name Repository</S.ListItem>
-         <S.ListItem>Repository: Name Repository0</S.ListItem>
+        {/* Programacao declarativa*/}
+        {repositories.map((repository) => {
+          return <S.ListItem>Repository: {repository}</S.ListItem>;
+        })}
       </S.List>
-      </S.Container>
-    )
+      <S.LinkHome to="/">Back</S.LinkHome>
+    </S.Container>
+  );
 }
-
