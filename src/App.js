@@ -1,14 +1,7 @@
-import './App.css';
-import React from 'react';
-import Routes from './routes';
-
-
+import React from "react";
+import Routes from "./routes";
+import "./style.css";
 
 export default function App(props) {
-  
-  
-  return ( 
-   <Routes/>
-  );
+  return <Routes />;
 }
-
